@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     // Use VITE_API_URL environment variable if available, otherwise default to localhost
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: import.meta.env.VITE_API_URL || 'https://msme-invest-connect.onrender.com/api',
     timeout: 5000, // 5 seconds timeout
     headers: {
         'Content-Type': 'application/json'
