@@ -2,8 +2,11 @@
     "name": "msme-invest-connect-root",
     "version": "1.0.0",
     "private": true,
+    "engines": {
+        "node": ">=18.0.0"
+    },
     "scripts": {
-        "build": "npm install && npm run build --workspace=client",
+        "build": "npm install --include=dev && npm run build --workspace=client",
         "start": "npm start --workspace=server"
     },
     "workspaces": [
