@@ -53,4 +53,9 @@ const companySchema = new mongoose.Schema({
     }
 });
 
+// Indexes for frequent search queries
+companySchema.index({ sector: 1 });
+companySchema.index({ fundingGoal: 1 });
+companySchema.index({ businessName: 'text', description: 'text' }); // Text search
+
 module.exports = mongoose.model('Company', companySchema);

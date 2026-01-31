@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/invest', investRoutes);
+app.use('/api/documents', require('./routes/documents'));
 app.use('/api/verification', require('./routes/verification'));
 
 // Serve static assets (React App)
