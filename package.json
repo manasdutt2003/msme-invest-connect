@@ -1,0 +1,12 @@
+{
+    "name": "msme-invest-connect-root",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "build": "echo 'Use render.yaml or configure Root Directory to client/server' && exit 0"
+    },
+    "workspaces": [
+        "client",
+        "server"
+    ]
+}

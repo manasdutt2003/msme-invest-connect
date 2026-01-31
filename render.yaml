@@ -1,0 +1,29 @@
+services:
+  # Backend Service
+  - type: web
+    name: msme-invest-connect-server
+    env: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false # User must provide this
+      - key: JWT_SECRET
+        generateValue: true
+    plan: free
+
+  # Frontend Service
+  - type: web
+    name: msme-invest-connect-client
+    env: docker
+    dockerfilePath: ./client/Dockerfile
+    dockerContext: ./client
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: msme-invest-connect-server
+          property: url
+    plan: free
