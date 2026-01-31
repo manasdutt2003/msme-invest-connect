@@ -1,1 +1,2 @@
-require('./server/server.js');
+process.chdir('./server');
+require('./server.js');
