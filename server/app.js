@@ -24,14 +24,28 @@ app.use((req, res, next) => {
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
 // Routes
-// app.get('/', (req, res) => {
-//     res.send('MSME Invest Connect API');
-// });
-
+app.get('/', (req, res) => {
+    res.send('MSME Invest Connect API');
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/invest', investRoutes);
+app.use('/api/verification', require('./routes/verification'));
+
+// Serve static assets (React App)
+const path = require('path');
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Serve client build
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
+});
+
 
 // Global Error Handler
 app.use((err, req, res, next) => {
