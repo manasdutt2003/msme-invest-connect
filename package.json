@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "build": "echo 'Use render.yaml or configure Root Directory to client/server' && exit 0"
+        "build": "npm install && npm run build --workspace=client",
+        "start": "npm start --workspace=server"
     },
     "workspaces": [
         "client",
