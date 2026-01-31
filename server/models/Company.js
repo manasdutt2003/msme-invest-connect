@@ -30,6 +30,23 @@ const companySchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    // Financials for Credit Scoring
+    revenue: {
+        type: Number,
+        required: true
+    },
+    debt: {
+        type: Number,
+        required: true
+    },
+    foundedYear: {
+        type: Number,
+        required: true
+    },
+    trustScore: {
+        type: Number,
+        default: 50 // Base score
+    },
     date: {
         type: Date,
         default: Date.now

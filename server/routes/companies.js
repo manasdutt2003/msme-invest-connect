@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const checkRole = require('../middleware/role');
 const { getAllCompanies, getMyCompany, createCompany } = require('../controllers/companyController');
 const { validate, schemas } = require('../middleware/validation');
 
@@ -16,7 +17,7 @@ router.get('/my-company', auth, getMyCompany);
 
 // @route   POST api/companies
 // @desc    Create a company profile
-// @access  Private
-router.post('/', [auth, validate(schemas.createCompany)], createCompany);
+// @access  Private (MSME only)
+router.post('/', [auth, checkRole(['msme']), validate(schemas.createCompany)], createCompany);
 
 module.exports = router;

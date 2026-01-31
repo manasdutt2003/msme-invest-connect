@@ -19,6 +19,20 @@ const userSchema = new mongoose.Schema({
         enum: ['msme', 'investor'],
         default: 'msme'
     },
+    verificationStatus: {
+        type: String,
+        enum: ['unverified', 'pending', 'verified', 'rejected'],
+        default: 'unverified'
+    },
+    kycDocuments: [{
+        docType: { type: String, enum: ['pan', 'udyam'] },
+        filename: String,
+        uploadedAt: { type: Date, default: Date.now }
+    }],
+    preferences: {
+        type: [String], // Array of strings e.g. ["Technology", "Solar", "High Yield"]
+        default: []
+    },
     date: {
         type: Date,
         default: Date.now

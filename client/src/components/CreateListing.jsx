@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api/axios';
+import axios from '../api/axios';
 
 const CreateListing = ({ onListingCreated }) => {
     const [formData, setFormData] = useState({
@@ -7,112 +7,163 @@ const CreateListing = ({ onListingCreated }) => {
         description: '',
         sector: '',
         fundingGoal: '',
-        returnsPercentage: ''
+        returnsPercentage: '',
+        revenue: '',
+        debt: '',
+        foundedYear: ''
     });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
-    const { businessName, description, sector, fundingGoal, returnsPercentage } = formData;
+    const { businessName, description, sector, fundingGoal, returnsPercentage, revenue, debt, foundedYear } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-    const onSubmit = async e => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
+        setMessage('');
+
         try {
-            const res = await api.post('/companies', formData);
+            const token = localStorage.getItem('token');
+            const res = await axios.post('/companies', formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            setMessage('Company profile created successfully!');
             if (onListingCreated) onListingCreated(res.data);
-            alert('Business Listed Successfully!');
+            setFormData({ businessName: '', description: '', sector: '', fundingGoal: '', returnsPercentage: '', revenue: '', debt: '', foundedYear: '' });
         } catch (err) {
-            console.error(err);
-            setError(err.response?.data?.message || 'Failed to create listing');
+            setMessage(err.response?.data?.message || 'Error creating profile');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-gray-800 mb-6">Create Your Business Listing</h3>
-            {error && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm mb-6">{error}</div>}
-            <form onSubmit={onSubmit} className="space-y-6">
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left">
+            <h3 className="text-xl font-bold text-white mb-4">Create New Listing</h3>
+            {error && <div className="mb-4 text-red-400 text-sm bg-red-500/10 p-2 rounded">{error}</div>}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Company Name</label>
                     <input
                         type="text"
-                        name="businessName"
-                        value={businessName}
-                        onChange={onChange}
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         required
-                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
                     />
                 </div>
+
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Description</label>
                     <textarea
                         name="description"
-                        value={description}
-                        onChange={onChange}
-                        required
-                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
+                        value={formData.description}
+                        onChange={handleChange}
                         rows="3"
+                        className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                        required
                     ></textarea>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Sector</label>
-                    <select
-                        name="sector"
-                        value={sector}
-                        onChange={onChange}
-                        required
-                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
-                    >
-                        <option value="">Select Sector</option>
-                        <option value="Manufacturing">Manufacturing</option>
-                        <option value="Textiles">Textiles</option>
-                        <option value="Agriculture">Agriculture</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Energy">Energy</option>
-                        <option value="Automotive">Automotive</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Funding Goal (sw)</label>
-                    <div className="relative rounded-md shadow-sm">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span className="text-gray-500 sm:text-sm">₹</span>
-                        </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-1">Sector</label>
+                        <select
+                            name="sector"
+                            value={formData.sector}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                            required
+                        >
+                            <option value="">Select...</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Finance">Finance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-1">Returns (%)</label>
                         <input
                             type="number"
-                            name="fundingGoal"
-                            value={fundingGoal}
+                            name="returnsPercentage"
+                            value={returnsPercentage}
                             onChange={onChange}
+                            className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
                             required
-                            className="appearance-none rounded-lg block w-full pl-7 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
-                            min="10000"
                         />
                     </div>
                 </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label htmlFor="revenue" className="sr-only">Annual Revenue</label>
+                        <input
+                            id="revenue"
+                            name="revenue"
+                            type="number"
+                            required
+                            value={revenue}
+                            onChange={onChange}
+                            className="block w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all"
+                            placeholder="Annual Revenue (₹)"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="debt" className="sr-only">Total Debt</label>
+                        <input
+                            id="debt"
+                            name="debt"
+                            type="number"
+                            required
+                            value={debt}
+                            onChange={onChange}
+                            className="block w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all"
+                            placeholder="Total Debt (₹)"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="foundedYear" className="sr-only">Founded Year</label>
+                        <input
+                            id="foundedYear"
+                            name="foundedYear"
+                            type="number"
+                            required
+                            value={foundedYear}
+                            onChange={onChange}
+                            className="block w-full px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all"
+                            placeholder="Founded Year (YYYY)"
+                        />
+                    </div>
+                </div>
+
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Returns Percentage (%)</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Funding Goal ($)</label>
                     <input
                         type="number"
-                        name="returnsPercentage"
-                        value={returnsPercentage}
+                        name="fundingGoal"
+                        value={fundingGoal}
                         onChange={onChange}
+                        className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         required
-                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
-                        min="1"
-                        max="100"
                     />
                 </div>
+
                 <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={loading}
+                    className="w-full py-2.5 px-4 rounded-lg bg-brand-primary text-white font-bold hover:bg-brand-secondary transition-all disabled:opacity-70 mt-2"
                 >
-                    {loading ? 'Creating...' : 'List Business'}
+                    {loading ? 'Creating...' : 'List Company'}
                 </button>
             </form>
         </div>

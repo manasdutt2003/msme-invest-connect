@@ -24,9 +24,10 @@ app.use((req, res, next) => {
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('MSME Invest Connect API');
-});
+// app.get('/', (req, res) => {
+//     res.send('MSME Invest Connect API');
+// });
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);

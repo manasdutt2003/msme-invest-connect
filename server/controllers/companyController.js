@@ -1,5 +1,6 @@
 const Company = require('../models/Company');
 const User = require('../models/User');
+const calculateTrustScore = require('../utils/creditScore');
 
 exports.getAllCompanies = async (req, res) => {
     try {
@@ -19,7 +20,11 @@ exports.getAllCompanies = async (req, res) => {
                     sector: "Textiles",
                     fundingGoal: 500000,
                     amountRaised: 120000,
-                    returnsPercentage: 12
+                    returnsPercentage: 12,
+                    revenue: 800000,
+                    debt: 50000,
+                    foundedYear: 2015,
+                    trustScore: calculateTrustScore(800000, 50000, 2015)
                 },
                 {
                     businessName: "AgroTech Innovations",
@@ -27,7 +32,11 @@ exports.getAllCompanies = async (req, res) => {
                     sector: "Agriculture",
                     fundingGoal: 1000000,
                     amountRaised: 450000,
-                    returnsPercentage: 15
+                    returnsPercentage: 15,
+                    revenue: 200000,
+                    debt: 10000,
+                    foundedYear: 2020,
+                    trustScore: calculateTrustScore(200000, 10000, 2020)
                 },
                 {
                     businessName: "Solar Components Co",
@@ -35,7 +44,11 @@ exports.getAllCompanies = async (req, res) => {
                     sector: "Energy",
                     fundingGoal: 2000000,
                     amountRaised: 0,
-                    returnsPercentage: 10
+                    returnsPercentage: 10,
+                    revenue: 1500000,
+                    debt: 300000,
+                    foundedYear: 2010,
+                    trustScore: calculateTrustScore(1500000, 300000, 2010)
                 }
             ];
 
@@ -69,7 +82,7 @@ exports.getMyCompany = async (req, res) => {
 };
 
 exports.createCompany = async (req, res) => {
-    const { businessName, description, sector, fundingGoal, returnsPercentage } = req.body;
+    const { businessName, description, sector, fundingGoal, returnsPercentage, revenue, debt, foundedYear } = req.body;
 
     try {
         // Check if user already has a company
@@ -78,13 +91,19 @@ exports.createCompany = async (req, res) => {
             return res.status(400).json({ message: 'You already have a company listed' });
         }
 
+        const trustScore = calculateTrustScore(revenue, debt, foundedYear);
+
         const newCompany = new Company({
             owner: req.user.id,
             businessName,
             description,
             sector,
             fundingGoal,
-            returnsPercentage
+            returnsPercentage,
+            revenue,
+            debt,
+            foundedYear,
+            trustScore
         });
 
         const savedCompany = await newCompany.save();
