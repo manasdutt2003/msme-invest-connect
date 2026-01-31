@@ -1,9 +1,22 @@
 import axios from 'axios';
 
+// Helper to construct full URL
+const getBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    // If it's just a hostname (from Render), prepend https
+    if (!url.startsWith('http')) {
+        url = `https://${url}`;
+    }
+    // Append /api if missing (unless it's already there)
+    if (!url.endsWith('/api')) {
+        url = `${url}/api`;
+    }
+    return url;
+};
+
 const api = axios.create({
-    // Use VITE_API_URL environment variable if available, otherwise default to localhost
-    baseURL: import.meta.env.VITE_API_URL || 'https://msme-invest-connect-1.onrender.com/api',
-    timeout: 5000, // 5 seconds timeout
+    baseURL: getBaseUrl(),
+    timeout: 10000,
     headers: {
         'Content-Type': 'application/json'
     }

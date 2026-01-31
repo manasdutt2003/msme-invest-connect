@@ -25,5 +25,5 @@ services:
         fromService:
           type: web
           name: msme-invest-connect-server
-          property: url
+          property: host
     plan: free
