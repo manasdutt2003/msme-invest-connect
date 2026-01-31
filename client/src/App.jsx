@@ -6,14 +6,13 @@ import Marketplace from './pages/Marketplace';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="app">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
-        <main>
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/marketplace" element={<Marketplace />} />

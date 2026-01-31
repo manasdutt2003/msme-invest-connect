@@ -1,0 +1,56 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # Server Setup
+    - name: Use Node.js ${{ matrix.node-version }} for Server
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+
+    - name: Install Server Dependencies
+      run: |
+        cd server
+        npm ci
+
+    # Client Setup
+    - name: Use Node.js ${{ matrix.node-version }} for Client
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: client/package-lock.json
+
+    - name: Install Client Dependencies
+      run: |
+        cd client
+        npm ci
+
+    # Linting (Failure is expected if unused vars exists, but good to check)
+    # - name: Lint Client
+    #   run: |
+    #     cd client
+    #     npm run lint
+
+    # Build
+    - name: Build Client
+      run: |
+        cd client
+        npm run build

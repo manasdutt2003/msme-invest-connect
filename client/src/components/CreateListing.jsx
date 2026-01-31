@@ -33,35 +33,41 @@ const CreateListing = ({ onListingCreated }) => {
     };
 
     return (
-        <div className="card" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }}>
-            <h3>Create Your Business Listing</h3>
-            {error && <div className="error-alert" style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label>Business Name</label>
+        <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-gray-800 mb-6">Create Your Business Listing</h3>
+            {error && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm mb-6">{error}</div>}
+            <form onSubmit={onSubmit} className="space-y-6">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
                     <input
                         type="text"
                         name="businessName"
                         value={businessName}
                         onChange={onChange}
                         required
-                        className="form-control"
+                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
                     />
                 </div>
-                <div className="form-group">
-                    <label>Description</label>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                     <textarea
                         name="description"
                         value={description}
                         onChange={onChange}
                         required
-                        className="form-control"
+                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
                         rows="3"
                     ></textarea>
                 </div>
-                <div className="form-group">
-                    <label>Sector</label>
-                    <select name="sector" value={sector} onChange={onChange} required className="form-control">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Sector</label>
+                    <select
+                        name="sector"
+                        value={sector}
+                        onChange={onChange}
+                        required
+                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
+                    >
                         <option value="">Select Sector</option>
                         <option value="Manufacturing">Manufacturing</option>
                         <option value="Textiles">Textiles</option>
@@ -71,32 +77,41 @@ const CreateListing = ({ onListingCreated }) => {
                         <option value="Automotive">Automotive</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label>Funding Goal (₹)</label>
-                    <input
-                        type="number"
-                        name="fundingGoal"
-                        value={fundingGoal}
-                        onChange={onChange}
-                        required
-                        className="form-control"
-                        min="10000"
-                    />
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Funding Goal (sw)</label>
+                    <div className="relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span className="text-gray-500 sm:text-sm">₹</span>
+                        </div>
+                        <input
+                            type="number"
+                            name="fundingGoal"
+                            value={fundingGoal}
+                            onChange={onChange}
+                            required
+                            className="appearance-none rounded-lg block w-full pl-7 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
+                            min="10000"
+                        />
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Returns Percentage (%)</label>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Returns Percentage (%)</label>
                     <input
                         type="number"
                         name="returnsPercentage"
                         value={returnsPercentage}
                         onChange={onChange}
                         required
-                        className="form-control"
+                        className="appearance-none rounded-lg block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm"
                         min="1"
                         max="100"
                     />
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem', width: '100%' }} disabled={loading}>
+                <button
+                    type="submit"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={loading}
+                >
                     {loading ? 'Creating...' : 'List Business'}
                 </button>
             </form>

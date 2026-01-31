@@ -1,116 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const Company = require('../models/Company');
-const User = require('../models/User');
 const auth = require('../middleware/auth');
+const { getAllCompanies, getMyCompany, createCompany } = require('../controllers/companyController');
+const { validate, schemas } = require('../middleware/validation');
 
-// Get All Companies
-router.get('/', async (req, res) => {
-    try {
-        let companies = await Company.find();
+// @route   GET api/companies
+// @desc    Get all companies
+// @access  Public
+router.get('/', getAllCompanies);
 
-        // SEEDING LOGIC: If no companies exist, create some demo ones
-        if (companies.length === 0) {
-            console.log('Seeding demo companies...');
+// @route   GET api/companies/my-company
+// @desc    Get current user's company
+// @access  Private
+router.get('/my-company', auth, getMyCompany);
 
-            // Find or create a demo MSME user 'owner'
-            let owner = await User.findOne({ email: 'demo@msme.com' });
-            if (!owner) {
-                // Return empty if no user, or rely on manual creation
-            }
-
-            const demoCompanies = [
-                {
-                    businessName: "Green Textiles Pvt Ltd",
-                    description: "Sustainable textile manufacturing for export markets.",
-                    sector: "Textiles",
-                    fundingGoal: 500000,
-                    amountRaised: 120000,
-                    returnsPercentage: 12
-                },
-                {
-                    businessName: "AgroTech Innovations",
-                    description: "IoT solutions for modern farming equipment.",
-                    sector: "Agriculture",
-                    fundingGoal: 1000000,
-                    amountRaised: 450000,
-                    returnsPercentage: 15
-                },
-                {
-                    businessName: "Solar Components Co",
-                    description: "Manufacturing high-efficiency solar panel parts.",
-                    sector: "Energy",
-                    fundingGoal: 2000000,
-                    amountRaised: 0,
-                    returnsPercentage: 10
-                }
-            ];
-
-            let dummyUser = await User.findOne();
-            if (!dummyUser) {
-                // If absolutely no user exists, maybe skip seeding or create one.
-                // For now, let's just return empty [] if no user is found to own these.
-                // Ideally we should create one, but avoiding side effects for now.
-            } else {
-                const companiesWithOwner = demoCompanies.map(c => ({ ...c, owner: dummyUser._id }));
-                await Company.insertMany(companiesWithOwner);
-                companies = await Company.find(); // Re-fetch
-            }
-        }
-
-        res.json(companies);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
-    }
-});
-
-// Get Current User's Company
-router.get('/my-company', auth, async (req, res) => {
-    try {
-        // Find company where owner matches the logged in user
-        const company = await Company.findOne({ owner: req.user.id });
-        if (!company) {
-            return res.status(404).json({ message: 'No company found for this user' });
-        }
-        res.json(company);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
-    }
-});
-
-// Create Company Profile (Protected)
-router.post('/', auth, async (req, res) => {
-    const { businessName, description, sector, fundingGoal, returnsPercentage } = req.body;
-
-    // Simple validation
-    if (!businessName || !description || !fundingGoal || !returnsPercentage) {
-        return res.status(400).json({ message: 'Please enter all fields' });
-    }
-
-    try {
-        // Check if user already has a company
-        let company = await Company.findOne({ owner: req.user.id });
-        if (company) {
-            return res.status(400).json({ message: 'You already have a company listed' });
-        }
-
-        const newCompany = new Company({
-            owner: req.user.id,
-            businessName,
-            description,
-            sector,
-            fundingGoal,
-            returnsPercentage
-        });
-
-        const savedCompany = await newCompany.save();
-        res.json(savedCompany);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
-    }
-});
+// @route   POST api/companies
+// @desc    Create a company profile
+// @access  Private
+router.post('/', [auth, validate(schemas.createCompany)], createCompany);
 
 module.exports = router;
