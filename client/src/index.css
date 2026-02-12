@@ -4,24 +4,10 @@
 @tailwind utilities;
 
 body {
-  @apply font-sans text-slate-800 antialiased bg-slate-50 selection:bg-indigo-500 selection:text-white;
   background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
   background-attachment: fixed;
   background-color: #0f172a;
-  /* Fallback/Base dark color */
   color: #f8fafc;
-  /* Projecting a dark mode base by default or light content? strict requirement was premium. Dark mode often feels more premium. Let's go dark mode base for 'premium fintech'. */
 }
 
-/* Scrollbar beautification */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-slate-900;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-700 rounded-full hover:bg-slate-600;
-}
+/* Scrollbar styling removed for v4 compatibility */
