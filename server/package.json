@@ -20,6 +20,7 @@
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.5",
+    "msme-invest-connect-root": "file:..",
     "multer": "^1.4.5-lts.1",
     "natural": "^8.1.0",
     "swagger-jsdoc": "^6.2.8",

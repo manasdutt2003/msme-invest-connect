@@ -8,7 +8,6 @@ import InvestmentWizard from '../components/invest/InvestmentWizard';
 
 const Dashboard = () => {
     const [user, setUser] = useState(null);
-    const [investments, setInvestments] = useState([]);
     const [myCompany, setMyCompany] = useState(null);
     const [activeTab, setActiveTab] = useState('overview');
     const [selectedCompany, setSelectedCompany] = useState(null);
@@ -37,8 +36,6 @@ const Dashboard = () => {
         }
     }, []);
 
-    if (!user) return null;
-
     const [recommendations, setRecommendations] = useState([]);
     const [preferences, setPreferences] = useState('');
     const [editingPrefs, setEditingPrefs] = useState(false);
@@ -49,7 +46,7 @@ const Dashboard = () => {
                 const token = localStorage.getItem('token');
                 const config = { headers: { Authorization: `Bearer ${token}` } };
 
-                const userRes = await axios.get('/auth/user', config).catch(() => null); // Or however we get user details
+                await axios.get('/auth/user', config).catch(() => null); // Or however we get user details
                 // Assuming user is already partly loaded, but we need fresh prefs maybe? 
                 // Let's rely on the user state from context/parent if possible, or fetch it.
                 // For simplicity, let's fetch recommendations if user is investor.
@@ -113,6 +110,8 @@ const Dashboard = () => {
             console.error("Investment failed", err);
         }
     };
+
+    if (!user) return null;
 
     return (
         <div className="min-h-screen pt-20 pb-10 px-4 sm:px-6 lg:px-8">
@@ -366,3 +365,5 @@ const Dashboard = () => {
         </div>
     );
 };
+
+export default Dashboard;

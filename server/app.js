@@ -1,7 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const fs = require('fs');
+const path = require('path');
 const swaggerUI = require('swagger-ui-express');
 const swaggerSpecs = require('./docs/swagger');
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 // Import Routes
 const authRoutes = require('./routes/auth');
@@ -12,7 +21,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+    origin: (origin, callback) => {
+        // Reflect origin dynamically to support credentials (which cannot use wildcard '*')
+        callback(null, true);
+    },
+    credentials: true
+}));
 
 // Request Logger
 app.use((req, res, next) => {
@@ -35,7 +51,6 @@ app.use('/api/documents', require('./routes/documents'));
 app.use('/api/verification', require('./routes/verification'));
 
 // Serve static assets (React App)
-const path = require('path');
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

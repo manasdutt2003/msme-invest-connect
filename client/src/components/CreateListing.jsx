@@ -47,16 +47,16 @@ const CreateListing = ({ onListingCreated }) => {
     return (
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left">
             <h3 className="text-xl font-bold text-white mb-4">Create New Listing</h3>
-            {error && <div className="mb-4 text-red-400 text-sm bg-red-500/10 p-2 rounded">{error}</div>}
+            {message && <div className="mb-4 text-emerald-400 text-sm bg-emerald-500/10 p-2 rounded">{message}</div>}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={onSubmit} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Company Name</label>
                     <input
                         type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
+                        name="businessName"
+                        value={businessName}
+                        onChange={onChange}
                         className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         required
                     />
@@ -66,8 +66,8 @@ const CreateListing = ({ onListingCreated }) => {
                     <label className="block text-sm font-medium text-slate-300 mb-1">Description</label>
                     <textarea
                         name="description"
-                        value={formData.description}
-                        onChange={handleChange}
+                        value={description}
+                        onChange={onChange}
                         rows="3"
                         className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         required
@@ -79,8 +79,8 @@ const CreateListing = ({ onListingCreated }) => {
                         <label className="block text-sm font-medium text-slate-300 mb-1">Sector</label>
                         <select
                             name="sector"
-                            value={formData.sector}
-                            onChange={handleChange}
+                            value={sector}
+                            onChange={onChange}
                             className="w-full px-3 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                             required
                         >
