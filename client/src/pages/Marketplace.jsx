@@ -22,8 +22,8 @@ const Marketplace = () => {
     }, []);
 
     const filteredCompanies = companies.filter(company =>
-        company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        company.sector.toLowerCase().includes(searchTerm.toLowerCase())
+        (company.businessName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (company.sector || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -65,7 +65,7 @@ const Marketplace = () => {
                                 <div key={company._id} className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-primary/10 flex flex-col h-full">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
-                                            <h3 className="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">{company.name}</h3>
+                                            <h3 className="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">{company.businessName}</h3>
                                             <p className="text-sm text-slate-400">{company.sector}</p>
                                         </div>
                                         <div className={`px-3 py-1 rounded-full text-xs font-bold border ${company.trustScore >= 80 ? 'bg-green-500/10 text-green-500 border-green-500/20' : company.trustScore >= 50 ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'}`}>
@@ -82,13 +82,13 @@ const Marketplace = () => {
                                         {/* Progress Bar */}
                                         <div className="space-y-2">
                                             <div className="flex justify-between text-xs font-medium text-slate-300">
-                                                <span>Raised: ${company.raised || 0}</span>
+                                                <span>Raised: ${company.amountRaised || 0}</span>
                                                 <span>Goal: ${company.fundingGoal}</span>
                                             </div>
                                             <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
                                                 <div
                                                     className="bg-brand-success h-2 rounded-full transition-all duration-500"
-                                                    style={{ width: `${Math.min(((company.raised || 0) / company.fundingGoal) * 100, 100)}%` }}
+                                                    style={{ width: `${Math.min(((company.amountRaised || 0) / company.fundingGoal) * 100, 100)}%` }}
                                                 />
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@ const Marketplace = () => {
                                         <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                                             <div className="text-sm">
                                                 <span className="block text-slate-400">Returns</span>
-                                                <span className="font-bold text-brand-success">{company.returnPercentage}%</span>
+                                                <span className="font-bold text-brand-success">{company.returnsPercentage}%</span>
                                             </div>
                                             <button className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm font-semibold hover:bg-brand-secondary transition-colors shadow-lg shadow-brand-primary/20">
                                                 Invest Now

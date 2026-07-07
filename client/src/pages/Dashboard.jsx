@@ -258,13 +258,13 @@ const Dashboard = () => {
                                     <h2 className="text-xl font-bold text-white mb-6">Company Management</h2>
                                     {myCompany ? (
                                         <div className="p-4 rounded-xl bg-brand-card border border-white/5">
-                                            <h3 className="font-bold text-lg text-white">{myCompany.name}</h3>
+                                            <h3 className="font-bold text-lg text-white">{myCompany.businessName}</h3>
                                             <p className="text-slate-400 text-sm mb-4">{myCompany.description}</p>
-                                            <div className="w-full bg-slate-700/50 rounded-full h-2.5 mb-2">
-                                                <div className="bg-brand-primary h-2.5 rounded-full" style={{ width: '45%' }}></div>
+                                            <div className="w-full bg-slate-700/50 rounded-full h-2.5 mb-2 overflow-hidden">
+                                                <div className="bg-brand-primary h-2.5 rounded-full transition-all duration-500" style={{ width: `${Math.min(((myCompany.amountRaised || 0) / myCompany.fundingGoal) * 100, 100)}%` }}></div>
                                             </div>
                                             <div className="flex justify-between text-xs text-slate-300">
-                                                <span>Raised: ${myCompany.raised || 0}</span>
+                                                <span>Raised: ${myCompany.amountRaised || 0}</span>
                                                 <span>Goal: ${myCompany.fundingGoal}</span>
                                             </div>
                                         </div>
