@@ -1,13 +1,18 @@
 {
-  "lastRun": "2026-07-11T02:29:57.148Z",
+  "lastRun": "2026-07-11T06:10:50.210Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
+      "file": "server/models/User.js",
+      "rule": "indent",
+      "fixedAt": "2026-07-11T06:10:50.211Z"
+    },
+    {
       "file": "src/components/Navbar.jsx",
       "rule": "quotes",
-      "fixedAt": "2026-07-11T02:29:57.148Z"
+      "fixedAt": "2026-07-11T06:10:50.211Z"
     }
   ],
-  "summary": "Linting completed. Fixed 1 formatting issues."
+  "summary": "Linting completed. Fixed 2 formatting issues."
 }
