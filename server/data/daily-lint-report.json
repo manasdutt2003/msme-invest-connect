@@ -1,18 +1,33 @@
 {
-  "lastRun": "2026-07-12T20:43:01.234Z",
+  "lastRun": "2026-07-12T22:44:45.639Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/pages/Login.jsx",
-      "rule": "comma-dangle",
-      "fixedAt": "2026-07-12T20:43:01.234Z"
+      "file": "server/models/User.js",
+      "rule": "indent",
+      "fixedAt": "2026-07-12T22:44:45.639Z"
     },
     {
       "file": "server/models/User.js",
+      "rule": "quotes",
+      "fixedAt": "2026-07-12T22:44:45.639Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
       "rule": "comma-dangle",
-      "fixedAt": "2026-07-12T20:43:01.234Z"
+      "fixedAt": "2026-07-12T22:44:45.639Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-07-12T22:44:45.639Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-07-12T22:44:45.639Z"
     }
   ],
-  "summary": "Linting completed. Fixed 2 formatting issues."
+  "summary": "Linting completed. Fixed 5 formatting issues."
 }
