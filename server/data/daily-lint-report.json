@@ -1,18 +1,13 @@
 {
-  "lastRun": "2026-07-13T22:54:11.518Z",
+  "lastRun": "2026-07-14T02:21:27.717Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/components/Navbar.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-07-13T22:54:11.518Z"
-    },
-    {
-      "file": "server/controllers/authController.js",
-      "rule": "quotes",
-      "fixedAt": "2026-07-13T22:54:11.518Z"
+      "file": "server/models/User.js",
+      "rule": "semi",
+      "fixedAt": "2026-07-14T02:21:27.717Z"
     }
   ],
-  "summary": "Linting completed. Fixed 2 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
