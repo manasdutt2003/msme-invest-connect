@@ -1,13 +1,18 @@
 {
-  "lastRun": "2026-07-27T22:59:23.733Z",
+  "lastRun": "2026-07-28T02:24:12.393Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "server/models/User.js",
-      "rule": "quotes",
-      "fixedAt": "2026-07-27T22:59:23.733Z"
+      "rule": "semi",
+      "fixedAt": "2026-07-28T02:24:12.393Z"
+    },
+    {
+      "file": "server/models/User.js",
+      "rule": "comma-dangle",
+      "fixedAt": "2026-07-28T02:24:12.393Z"
     }
   ],
-  "summary": "Linting completed. Fixed 1 formatting issues."
+  "summary": "Linting completed. Fixed 2 formatting issues."
 }
