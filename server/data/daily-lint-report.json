@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-07-29T19:12:41.753Z",
+  "lastRun": "2026-07-29T20:53:16.692Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/models/User.js",
+      "file": "src/pages/Dashboard.jsx",
       "rule": "quotes",
-      "fixedAt": "2026-07-29T19:12:41.753Z"
+      "fixedAt": "2026-07-29T20:53:16.692Z"
     }
   ],
   "summary": "Linting completed. Fixed 1 formatting issues."
