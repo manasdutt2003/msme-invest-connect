@@ -1,18 +1,13 @@
 {
-  "lastRun": "2026-08-01T22:52:51.589Z",
+  "lastRun": "2026-08-02T02:36:00.238Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "server/models/User.js",
       "rule": "semi",
-      "fixedAt": "2026-08-01T22:52:51.589Z"
-    },
-    {
-      "file": "server/models/User.js",
-      "rule": "no-unused-vars",
-      "fixedAt": "2026-08-01T22:52:51.589Z"
+      "fixedAt": "2026-08-02T02:36:00.238Z"
     }
   ],
-  "summary": "Linting completed. Fixed 2 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
