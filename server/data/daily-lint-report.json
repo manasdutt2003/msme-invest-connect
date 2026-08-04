@@ -1,23 +1,13 @@
 {
-  "lastRun": "2026-08-04T14:05:59.780Z",
+  "lastRun": "2026-08-04T17:46:23.916Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/pages/Dashboard.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-08-04T14:05:59.780Z"
-    },
-    {
       "file": "src/pages/Login.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-08-04T14:05:59.780Z"
-    },
-    {
-      "file": "server/models/User.js",
       "rule": "indent",
-      "fixedAt": "2026-08-04T14:05:59.780Z"
+      "fixedAt": "2026-08-04T17:46:23.916Z"
     }
   ],
-  "summary": "Linting completed. Fixed 3 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
