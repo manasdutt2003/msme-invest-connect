@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-08-10T13:02:23.721Z",
+  "lastRun": "2026-08-10T14:55:51.803Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "src/components/Navbar.jsx",
-      "rule": "no-unused-vars",
-      "fixedAt": "2026-08-10T13:02:23.722Z"
+      "rule": "quotes",
+      "fixedAt": "2026-08-10T14:55:51.803Z"
     }
   ],
   "summary": "Linting completed. Fixed 1 formatting issues."
