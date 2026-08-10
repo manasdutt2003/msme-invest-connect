@@ -1,32 +1,32 @@
 {
-  "lastRun": "2026-08-10T20:39:35.395Z",
+  "lastRun": "2026-08-10T22:34:38.004Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
+      "file": "src/components/Navbar.jsx",
+      "rule": "indent",
+      "fixedAt": "2026-08-10T22:34:38.005Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "semi",
+      "fixedAt": "2026-08-10T22:34:38.005Z"
+    },
+    {
       "file": "server/models/User.js",
       "rule": "indent",
-      "fixedAt": "2026-08-10T20:39:35.395Z"
+      "fixedAt": "2026-08-10T22:34:38.005Z"
     },
     {
-      "file": "server/models/User.js",
-      "rule": "comma-dangle",
-      "fixedAt": "2026-08-10T20:39:35.395Z"
+      "file": "src/pages/Login.jsx",
+      "rule": "quotes",
+      "fixedAt": "2026-08-10T22:34:38.005Z"
     },
     {
       "file": "src/components/Navbar.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-08-10T20:39:35.395Z"
-    },
-    {
-      "file": "src/components/Navbar.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-08-10T20:39:35.395Z"
-    },
-    {
-      "file": "src/components/Navbar.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-08-10T20:39:35.395Z"
+      "rule": "indent",
+      "fixedAt": "2026-08-10T22:34:38.005Z"
     }
   ],
   "summary": "Linting completed. Fixed 5 formatting issues."
