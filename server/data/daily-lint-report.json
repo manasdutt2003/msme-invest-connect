@@ -1,32 +1,32 @@
 {
-  "lastRun": "2026-08-11T07:03:04.571Z",
+  "lastRun": "2026-08-11T08:51:44.208Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/controllers/authController.js",
-      "rule": "indent",
-      "fixedAt": "2026-08-11T07:03:04.571Z"
+      "file": "server/models/User.js",
+      "rule": "quotes",
+      "fixedAt": "2026-08-11T08:51:44.208Z"
     },
     {
       "file": "server/models/User.js",
-      "rule": "semi",
-      "fixedAt": "2026-08-11T07:03:04.571Z"
-    },
-    {
-      "file": "server/models/User.js",
-      "rule": "comma-dangle",
-      "fixedAt": "2026-08-11T07:03:04.571Z"
-    },
-    {
-      "file": "server/controllers/authController.js",
-      "rule": "comma-dangle",
-      "fixedAt": "2026-08-11T07:03:04.571Z"
+      "rule": "quotes",
+      "fixedAt": "2026-08-11T08:51:44.208Z"
     },
     {
       "file": "src/pages/Login.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-08-11T07:03:04.571Z"
+      "rule": "comma-dangle",
+      "fixedAt": "2026-08-11T08:51:44.208Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "indent",
+      "fixedAt": "2026-08-11T08:51:44.208Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "comma-dangle",
+      "fixedAt": "2026-08-11T08:51:44.208Z"
     }
   ],
   "summary": "Linting completed. Fixed 5 formatting issues."
