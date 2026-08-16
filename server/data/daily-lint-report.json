@@ -1,18 +1,13 @@
 {
-  "lastRun": "2026-08-16T06:35:29.147Z",
+  "lastRun": "2026-08-16T08:25:59.564Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/pages/Dashboard.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-08-16T06:35:29.147Z"
-    },
-    {
       "file": "server/controllers/authController.js",
-      "rule": "quotes",
-      "fixedAt": "2026-08-16T06:35:29.147Z"
+      "rule": "semi",
+      "fixedAt": "2026-08-16T08:25:59.564Z"
     }
   ],
-  "summary": "Linting completed. Fixed 2 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
