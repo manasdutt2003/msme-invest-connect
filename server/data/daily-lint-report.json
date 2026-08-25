@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-08-25T08:38:47.129Z",
+  "lastRun": "2026-08-25T10:30:00.187Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/controllers/authController.js",
-      "rule": "semi",
-      "fixedAt": "2026-08-25T08:38:47.129Z"
+      "file": "src/pages/Dashboard.jsx",
+      "rule": "quotes",
+      "fixedAt": "2026-08-25T10:30:00.187Z"
     }
   ],
   "summary": "Linting completed. Fixed 1 formatting issues."
