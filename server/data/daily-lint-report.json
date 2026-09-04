@@ -1,13 +1,23 @@
 {
-  "lastRun": "2026-09-04T02:57:28.444Z",
+  "lastRun": "2026-09-04T08:28:11.608Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/components/Navbar.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-09-04T02:57:28.444Z"
+      "file": "server/models/User.js",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-09-04T08:28:11.608Z"
+    },
+    {
+      "file": "src/pages/Login.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-09-04T08:28:11.608Z"
+    },
+    {
+      "file": "src/pages/Login.jsx",
+      "rule": "indent",
+      "fixedAt": "2026-09-04T08:28:11.608Z"
     }
   ],
-  "summary": "Linting completed. Fixed 1 formatting issues."
+  "summary": "Linting completed. Fixed 3 formatting issues."
 }
