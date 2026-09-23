@@ -1,22 +1,22 @@
 {
-  "lastRun": "2026-09-23T04:33:52.452Z",
+  "lastRun": "2026-09-23T10:46:57.565Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "src/components/Navbar.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-09-23T04:33:52.452Z"
-    },
-    {
       "file": "src/pages/Login.jsx",
       "rule": "semi",
-      "fixedAt": "2026-09-23T04:33:52.452Z"
+      "fixedAt": "2026-09-23T10:46:57.565Z"
     },
     {
-      "file": "src/pages/Dashboard.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-09-23T04:33:52.452Z"
+      "file": "server/controllers/authController.js",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-09-23T10:46:57.565Z"
+    },
+    {
+      "file": "server/controllers/authController.js",
+      "rule": "indent",
+      "fixedAt": "2026-09-23T10:46:57.565Z"
     }
   ],
   "summary": "Linting completed. Fixed 3 formatting issues."
