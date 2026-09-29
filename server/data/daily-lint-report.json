@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-09-28T19:15:09.746Z",
+  "lastRun": "2026-09-29T00:10:54.020Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/controllers/authController.js",
-      "rule": "quotes",
-      "fixedAt": "2026-09-28T19:15:09.746Z"
+      "file": "src/components/Navbar.jsx",
+      "rule": "indent",
+      "fixedAt": "2026-09-29T00:10:54.020Z"
     }
   ],
   "summary": "Linting completed. Fixed 1 formatting issues."
