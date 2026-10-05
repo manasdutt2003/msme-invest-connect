@@ -1,13 +1,18 @@
 {
-  "lastRun": "2026-10-04T21:09:39.086Z",
+  "lastRun": "2026-10-05T00:26:01.391Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
+      "file": "src/pages/Dashboard.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-10-05T00:26:01.391Z"
+    },
+    {
       "file": "src/components/Navbar.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-10-04T21:09:39.086Z"
+      "rule": "comma-dangle",
+      "fixedAt": "2026-10-05T00:26:01.391Z"
     }
   ],
-  "summary": "Linting completed. Fixed 1 formatting issues."
+  "summary": "Linting completed. Fixed 2 formatting issues."
 }
