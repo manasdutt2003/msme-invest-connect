@@ -1,17 +1,17 @@
 {
-  "lastRun": "2026-10-17T20:07:35.119Z",
+  "lastRun": "2026-10-17T23:44:14.200Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/models/User.js",
-      "rule": "indent",
-      "fixedAt": "2026-10-17T20:07:35.119Z"
+      "file": "src/pages/Login.jsx",
+      "rule": "comma-dangle",
+      "fixedAt": "2026-10-17T23:44:14.201Z"
     },
     {
-      "file": "src/components/Navbar.jsx",
+      "file": "src/pages/Dashboard.jsx",
       "rule": "quotes",
-      "fixedAt": "2026-10-17T20:07:35.119Z"
+      "fixedAt": "2026-10-17T23:44:14.201Z"
     }
   ],
   "summary": "Linting completed. Fixed 2 formatting issues."
