@@ -1,33 +1,13 @@
 {
-  "lastRun": "2026-10-30T23:27:11.016Z",
+  "lastRun": "2026-10-31T04:05:37.958Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "server/controllers/authController.js",
-      "rule": "indent",
-      "fixedAt": "2026-10-30T23:27:11.016Z"
-    },
-    {
-      "file": "src/pages/Login.jsx",
-      "rule": "semi",
-      "fixedAt": "2026-10-30T23:27:11.016Z"
-    },
-    {
-      "file": "server/models/User.js",
       "rule": "quotes",
-      "fixedAt": "2026-10-30T23:27:11.016Z"
-    },
-    {
-      "file": "src/pages/Login.jsx",
-      "rule": "no-unused-vars",
-      "fixedAt": "2026-10-30T23:27:11.016Z"
-    },
-    {
-      "file": "server/controllers/authController.js",
-      "rule": "indent",
-      "fixedAt": "2026-10-30T23:27:11.016Z"
+      "fixedAt": "2026-10-31T04:05:37.958Z"
     }
   ],
-  "summary": "Linting completed. Fixed 5 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
