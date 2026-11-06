@@ -1,17 +1,17 @@
 {
-  "lastRun": "2026-11-06T09:12:50.811Z",
+  "lastRun": "2026-11-06T17:09:58.990Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "server/models/User.js",
-      "rule": "quotes",
-      "fixedAt": "2026-11-06T09:12:50.811Z"
+      "rule": "indent",
+      "fixedAt": "2026-11-06T17:09:58.990Z"
     },
     {
-      "file": "server/models/User.js",
-      "rule": "quotes",
-      "fixedAt": "2026-11-06T09:12:50.811Z"
+      "file": "src/pages/Dashboard.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-11-06T17:09:58.990Z"
     }
   ],
   "summary": "Linting completed. Fixed 2 formatting issues."
