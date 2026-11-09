@@ -1,32 +1,32 @@
 {
-  "lastRun": "2026-11-09T15:12:08.079Z",
+  "lastRun": "2026-11-09T23:57:14.221Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
-      "file": "server/models/User.js",
-      "rule": "semi",
-      "fixedAt": "2026-11-09T15:12:08.079Z"
-    },
-    {
-      "file": "src/pages/Login.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-11-09T15:12:08.079Z"
-    },
-    {
-      "file": "server/models/User.js",
-      "rule": "quotes",
-      "fixedAt": "2026-11-09T15:12:08.079Z"
-    },
-    {
       "file": "src/pages/Login.jsx",
       "rule": "no-unused-vars",
-      "fixedAt": "2026-11-09T15:12:08.079Z"
+      "fixedAt": "2026-11-09T23:57:14.221Z"
     },
     {
       "file": "src/pages/Dashboard.jsx",
-      "rule": "quotes",
-      "fixedAt": "2026-11-09T15:12:08.079Z"
+      "rule": "semi",
+      "fixedAt": "2026-11-09T23:57:14.221Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-11-09T23:57:14.221Z"
+    },
+    {
+      "file": "src/components/Navbar.jsx",
+      "rule": "no-unused-vars",
+      "fixedAt": "2026-11-09T23:57:14.221Z"
+    },
+    {
+      "file": "server/controllers/authController.js",
+      "rule": "semi",
+      "fixedAt": "2026-11-09T23:57:14.221Z"
     }
   ],
   "summary": "Linting completed. Fixed 5 formatting issues."
