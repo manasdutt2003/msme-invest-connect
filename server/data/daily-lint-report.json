@@ -1,18 +1,13 @@
 {
-  "lastRun": "2026-11-12T12:10:19.377Z",
+  "lastRun": "2026-11-12T21:17:35.613Z",
   "status": "Clean",
   "filesScanned": 142,
   "issuesFixed": [
     {
       "file": "server/controllers/authController.js",
-      "rule": "quotes",
-      "fixedAt": "2026-11-12T12:10:19.377Z"
-    },
-    {
-      "file": "server/models/User.js",
-      "rule": "quotes",
-      "fixedAt": "2026-11-12T12:10:19.377Z"
+      "rule": "indent",
+      "fixedAt": "2026-11-12T21:17:35.613Z"
     }
   ],
-  "summary": "Linting completed. Fixed 2 formatting issues."
+  "summary": "Linting completed. Fixed 1 formatting issues."
 }
