@@ -1,16 +1,17 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { JWT_SECRET } = require('../config/secrets');
 
 const generateTokens = (user) => {
     const accessToken = jwt.sign(
         { user: { id: user.id } },
-        process.env.JWT_SECRET || 'secret',
+        JWT_SECRET,
         { expiresIn: '15m' }
     );
     const refreshToken = jwt.sign(
         { user: { id: user.id } },
-        process.env.JWT_SECRET || 'secret',
+        JWT_SECRET,
         { expiresIn: '7d' }
     );
     return { accessToken, refreshToken };
@@ -19,10 +20,11 @@ const generateTokens = (user) => {
 exports.register = async (req, res) => {
     const { name, email, password, role } = req.body;
     try {
-        let user = await User.findOne({ email });
+        const normalisedEmail = email.trim().toLowerCase();
+        let user = await User.findOne({ email: normalisedEmail });
         if (user) return res.status(400).json({ message: 'User already exists' });
 
-        user = new User({ name, email, password, role });
+        user = new User({ name, email: normalisedEmail, password, role });
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
         await user.save();
@@ -47,7 +49,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ email: String(email).trim().toLowerCase() });
         if (!user) return res.status(400).json({ message: 'Invalid Credentials' });
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -77,13 +79,13 @@ exports.refresh = async (req, res) => {
     const refreshToken = cookies.jwt;
 
     try {
-        const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET || 'secret');
+        const decoded = jwt.verify(refreshToken, JWT_SECRET);
         const user = await User.findById(decoded.user.id);
         if (!user) return res.status(401).json({ message: 'Unauthorized' });
 
         const accessToken = jwt.sign(
             { user: { id: user.id } },
-            process.env.JWT_SECRET || 'secret',
+            JWT_SECRET,
             { expiresIn: '15m' }
         );
 

@@ -67,7 +67,7 @@ exports.shareDocument = async (req, res) => {
         }
 
         // Add investor if not already added
-        if (!doc.allowedUsers.includes(investorId)) {
+        if (!doc.allowedUsers.map(String).includes(String(investorId))) {
             doc.allowedUsers.push(investorId);
             await doc.save();
 
@@ -95,7 +95,7 @@ exports.downloadDocument = async (req, res) => {
 
         // Check permissions: Owner OR is in allowedUsers
         const isOwner = doc.owner.toString() === req.user.id;
-        const isAllowed = doc.allowedUsers.includes(req.user.id);
+        const isAllowed = doc.allowedUsers.map(String).includes(req.user.id);
 
         if (!isOwner && !isAllowed) {
             return res.status(403).json({ message: 'Access denied' });
@@ -110,7 +110,12 @@ exports.downloadDocument = async (req, res) => {
 
         // Serve file
         // Construct absolute path. stored path is relative or absolute? Multer stores relative usually 'uploads/...'
-        const filePath = path.join(__dirname, '../../', doc.path);
+        const uploadsRoot = path.resolve(__dirname, '..', 'uploads');
+        const filePath = path.resolve(__dirname, '..', doc.path);
+        // Never serve anything outside the uploads folder.
+        if (!filePath.startsWith(uploadsRoot + path.sep)) {
+            return res.status(403).json({ message: 'Access denied' });
+        }
 
         if (fs.existsSync(filePath)) {
             res.download(filePath, doc.originalName);

@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Setup Multer Storage for Vault
-const vaultDir = 'uploads/vault';
+const vaultDir = path.join(__dirname, '..', 'uploads', 'vault');
 if (!fs.existsSync(vaultDir)) {
     fs.mkdirSync(vaultDir, { recursive: true });
 }

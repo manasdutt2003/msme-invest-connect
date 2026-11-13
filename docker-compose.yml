@@ -8,7 +8,9 @@ services:
     environment:
       - PORT=5000
       - MONGODB_URI=mongodb://mongo:27017/msme_invest
-      - JWT_SECRET=supersecretkey
+      - JWT_SECRET=${JWT_SECRET:?Set JWT_SECRET in a .env file next to docker-compose.yml}
+      - CLIENT_ORIGIN=http://localhost:5173
+      - DEMO_AUTO_VERIFY=${DEMO_AUTO_VERIFY:-false}
     depends_on:
       - mongo
     networks:
@@ -24,9 +26,7 @@ services:
       - mern-network
 
   mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
+    image: mongo:7
     volumes:
       - mongo-data:/data/db
     networks:

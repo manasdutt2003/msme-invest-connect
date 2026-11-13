@@ -1,12 +1,17 @@
 const User = require('../models/User');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+const KYC_DIR = path.join(__dirname, '..', 'uploads', 'kyc');
+fs.mkdirSync(KYC_DIR, { recursive: true });
+const DOC_TYPES = ['pan', 'udyam'];
 
 // Configure Multer for file storage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // In a real app, ensure this directory exists or use cloud storage (S3/Cloudinary)
-        cb(null, 'uploads/');
+        cb(null, KYC_DIR);
     },
     filename: function (req, file, cb) {
         cb(null, `${req.user.id}-${Date.now()}${path.extname(file.originalname)}`);
@@ -37,6 +42,9 @@ exports.uploadDocument = async (req, res) => {
         }
 
         const { docType } = req.body;
+        if (!DOC_TYPES.includes(docType)) {
+            return res.status(400).json({ message: `docType must be one of: ${DOC_TYPES.join(', ')}` });
+        }
         const user = await User.findById(req.user.id);
 
         if (!user) {
@@ -44,15 +52,16 @@ exports.uploadDocument = async (req, res) => {
         }
 
         user.kycDocuments.push({
-            docType: docType || 'other',
+            docType,
             filename: req.file.filename
         });
 
         user.verificationStatus = 'pending';
         await user.save();
 
-        // Simulate Mock Verification Process
-        setTimeout(async () => {
+        // Real verification would call a KYC provider. Auto-approval exists only
+        // for demos and is off unless DEMO_AUTO_VERIFY=true.
+        if (process.env.DEMO_AUTO_VERIFY === 'true') setTimeout(async () => {
             try {
                 // Fetch fresh user instance
                 const userToVerify = await User.findById(user._id);

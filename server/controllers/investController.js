@@ -33,8 +33,7 @@ exports.investInCompany = async (req, res) => {
         await investment.save();
 
         // Update company raised amount
-        company.amountRaised += amount;
-        await company.save();
+        await Company.updateOne({ _id: companyId }, { $inc: { amountRaised: amount } });
 
         // LOGGING: Critical financial transaction
         logger.info('Investment processed', {

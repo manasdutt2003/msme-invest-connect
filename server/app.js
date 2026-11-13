@@ -22,13 +22,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: (origin, callback) => {
-        // Reflect origin dynamically to support credentials (which cannot use wildcard '*')
-        callback(null, true);
-    },
-    credentials: true
-}));
+// Comma-separated list of frontend origins allowed to send credentials.
+const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 // Request Logger
 app.use((req, res, next) => {
@@ -50,15 +50,14 @@ app.use('/api/invest', investRoutes);
 app.use('/api/documents', require('./routes/documents'));
 app.use('/api/verification', require('./routes/verification'));
 
-// Serve static assets (React App)
-// Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Uploaded KYC and vault files are private. They are only reachable through
+// the authenticated /api/documents/:id/download route, never as static files.
 
 // Serve client build
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
 });
 
@@ -66,7 +65,10 @@ app.get('*', (req, res) => {
 // Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    const status = err.status || err.statusCode || (err.code === 'LIMIT_FILE_SIZE' ? 413 : 500);
+    // Do not leak file-system paths from failed static-file lookups.
+    const message = err.code === 'ENOENT' ? 'Not found' : status >= 500 ? 'Something broke!' : err.message;
+    res.status(err.code === 'ENOENT' ? 404 : status).json({ message });
 });
 
 module.exports = app;
