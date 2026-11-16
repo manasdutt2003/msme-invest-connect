@@ -11,11 +11,14 @@ A marketplace connecting small manufacturing businesses (MSMEs) that need workin
 - **KYC uploads** for PAN and Udyam documents
 - **Background jobs** on a worker thread for investment receipts
 - **API docs** at `/api-docs` (Swagger)
+- **Health check** at `GET /api/health` (200 when MongoDB is connected, 503 otherwise)
 - Short-lived access tokens (15 min) plus an HTTP-only refresh cookie
 
 ## Stack
 
 React 18 + Vite + Tailwind (client), Node.js + Express 5 + Mongoose (server), MongoDB.
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the request flow, modules and security model.
 
 ## Run locally
 
@@ -31,6 +34,14 @@ Or with Docker (needs a `.env` beside `docker-compose.yml` containing `JWT_SECRE
 ```bash
 docker compose up --build
 ```
+
+## Tests
+
+```bash
+cd server && JWT_SECRET=test npm test
+```
+
+The suite uses Node's built-in test runner. It currently has smoke tests for the health endpoint and the API 404. They need no database.
 
 ## Configuration (`server/.env`)
 
@@ -50,4 +61,5 @@ docker compose up --build
 
 - `GET /api/companies` seeds three demo companies when the collection is empty.
 - No payment processing: an investment is a record, not a money transfer.
+- Test coverage is minimal (smoke tests only).
 - The scheduled workflows in `.github/workflows` write simulated reports; they do not lint or test the code.

@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const swaggerUI = require('swagger-ui-express');
 const swaggerSpecs = require('./docs/swagger');
 
@@ -20,7 +21,7 @@ const investRoutes = require('./routes/invest');
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 // Comma-separated list of frontend origins allowed to send credentials.
 const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
@@ -30,9 +31,11 @@ const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 
-// Request Logger
+// Request Logger (silenced in tests to keep output readable)
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    if (process.env.NODE_ENV !== 'test') {
+        console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    }
     next();
 });
 
@@ -44,11 +47,26 @@ app.get('/', (req, res) => {
     res.send('MSME Invest Connect API');
 });
 
+// Liveness/readiness probe: 200 when MongoDB is connected, 503 otherwise.
+app.get('/api/health', (req, res) => {
+    const connected = mongoose.connection.readyState === 1;
+    res.status(connected ? 200 : 503).json({
+        status: connected ? 'ok' : 'degraded',
+        db: connected ? 'connected' : 'disconnected',
+        uptimeSeconds: Math.round(process.uptime()),
+    });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/invest', investRoutes);
 app.use('/api/documents', require('./routes/documents'));
 app.use('/api/verification', require('./routes/verification'));
+
+// Unknown API paths get a JSON 404 rather than the React app's index.html.
+app.use('/api', (req, res) => {
+    res.status(404).json({ message: 'Not found' });
+});
 
 // Uploaded KYC and vault files are private. They are only reachable through
 // the authenticated /api/documents/:id/download route, never as static files.
